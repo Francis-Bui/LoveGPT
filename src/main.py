@@ -3,7 +3,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain import OpenAI
 from langchain.utilities import GoogleSearchAPIWrapper
 from langchain.agents import initialize_agent
-import templates
+import src.util.templates as tp
 
 search = GoogleSearchAPIWrapper()
 tools = [
