@@ -1,5 +1,6 @@
 from langchain import PromptTemplate, OpenAI, LLMChain
 
+# Get both user and recipient data
 def generate_info():
 
     info = {'user': "", 'recipient': ""}
@@ -22,10 +23,7 @@ def generate_info():
 
     return info
 
-info = generate_info()
-print(info['user'])
-print(info['recipient'])
-
+# Use an LLM to summarize their personality
 def generate_personality(context):
     personality_prompt = f"Describe the personality traits and defining characteristics of this person in a concise paragraph. \
                 Consider their values, behavior patterns, interpersonal skills, and any notable achievements or \
@@ -37,6 +35,7 @@ def generate_personality(context):
 
     return personality
 
+# Create main prompt with acquired data
 def generate_template(user, recipient, personality, context):
 
     main_template = f"You are an AI programmed to simulate the responses of a {user}. \
