@@ -1,5 +1,30 @@
 from langchain import PromptTemplate, OpenAI, LLMChain
 
+def generate_info():
+
+    info = {'user': "", 'recipient': ""}
+
+    for key in info:
+
+        if key == 'user':
+            keyterm = "your"
+        else:
+            keyterm = "their"
+
+        name = input(f"What is {keyterm} name? \n")
+        age = input(f"What is {keyterm} age? \n")
+        gender = input(f"What is {keyterm} gender identity? \n")
+        relationship_status = input(f"What is {keyterm} relationship status? \n")
+        race = input(f"What is {keyterm} race? \n")
+        location = input(f"What is {keyterm} location? \n")
+
+        info[key] = f"{race} {gender} age {age} named {name} who is from {location} and currently {relationship_status}"
+
+    return info
+
+info = generate_info()
+print(info['user'])
+print(info['recipient'])
 
 def generate_personality(context):
     personality_prompt = f"Describe the personality traits and defining characteristics of this person in a concise paragraph. \
@@ -15,7 +40,7 @@ def generate_personality(context):
 def generate_template(user, recipient, personality, context):
 
     main_template = f"You are an AI programmed to simulate the responses of a {user}. \
-            Your task is to respond to a series of messages sent by your {recipient} as if you were engaged in a real conversation. \
+            Your task is to respond to messages sent by your {recipient} as if you were engaged in a real conversation. \
             The messages could range from {personality}, and your responses should reflect \
             the appropriate tone and sentiment for each message. You may use previous messages to build context and create \
             a more natural flow to the conversation. Your goal is to convince your partner that they are talking to a \
