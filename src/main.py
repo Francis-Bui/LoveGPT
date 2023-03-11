@@ -10,14 +10,43 @@ from langchain.prompts.chat import (
     MessagesPlaceholder
 )
 
+import os
 import src.util.templates as tp
 
-info = tp.generate_info()
-self_description = input("Describe your personality and other facts in one paragraph: \n")
-personality = tp.generate_personality(self_description)
-gen_prompt = tp.generate_template(info['user'], info['recipient'], personality=personality)
+if os.path('userdata.txt'):
+    user_data = open('userdata.txt', 'r')
+    info = user_data.read()
+    user_data.close()
+
+    personality_data = open('personality.txt', 'r')
+    personality = personality_data.read()
+    personality_data.close()
+
+    gen_prompt_data = open('userdata.txt', 'r')
+    gen_prompt = gen_prompt_data.read()
+    gen_prompt_data.close()
+
+else:
+    
+    info = tp.generate_info()
+    self_description = input("Describe your personality and other facts in one paragraph: \n")
+    personality = tp.generate_personality(self_description)
+    gen_prompt = tp.generate_template(info['user'], info['recipient'], personality=personality)
+
+    user_data = open('userdata.txt', 'w')
+    user_data.write(info)
+    user_data.close()
+
+    personality_data = open('personality.txt', 'w')
+    personality_data.write(personality)
+    personality_data.close()
+
+    gen_prompt_data = open('gen_prompt.txt', 'w')
+    gen_prompt_data.write(gen_prompt)
+    gen_prompt_data.close()
 
 search = GoogleSearchAPIWrapper()
+
 
 @tool("Contact", return_direct=True)
 def contactAPI(query: str) -> str:
